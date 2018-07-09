@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Link: Java Forms</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <a th:href="@{'/logout'}">Logout</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Coach</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="t:${teamList}">
+                <td th:text="${t.name}"></td>
+                <td th:text="${t.coach}"></td>
+                <td>
+                    <a th:href="@{'/team/'+${t.name}}">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form th:if="${selectedTeam!=null}" 
+    th:action="@{'/team/'+${selectedTeam.name}}" 
+    th:object="${selectedTeam}" method="post">
+        <label>Name</label>
+        <input type=text th:field="*{name}"/>
+        <label>Coach</label>
+        <input type=text th:field="*{coach}"/>
+        <button type=submit>Save</button>
+        <button type=reset>Reset</button>
+    </form>
+    
+</body>
